@@ -1,6 +1,7 @@
 import path from "path";
 import { UserConfig } from "vite";
 import uni from "@dcloudio/vite-plugin-uni"; // ！此依赖不能安装
+import { proxy } from "./amber/config/proxy";
 
 function resolve(dir: string) {
 	return path.resolve(__dirname, dir);
@@ -13,9 +14,16 @@ export default (): UserConfig => {
 		plugins: [uni()],
 		resolve: {
 			alias: {
-				"/@": resolve("./"),
-				"/$": resolve("./pages/"),
+				"@": resolve("./"),
+				"$": resolve("./pages/"),
 			},
 		},
+		server: {
+			port: 8888,
+			proxy,
+			hmr: {
+				overlay: true,
+			}
+		}
 	};
 };
