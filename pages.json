@@ -301,6 +301,12 @@
 	// 		]
 	// 	}
 	// ],
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			"^am-(.*)": "@/amber/ui/components/am-$1/am-$1.vue"
+		}
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "amber-uni",
@@ -315,11 +321,13 @@
 		"list": [
 			{
 				"pagePath": "pages/index/home",
+				"text": "首页",
 				"iconPath": "static/icon/tabbar/home-default.png",
 				"selectedIconPath": "static/icon/tabbar/home-selected.png"
 			},
 			{
 				"pagePath": "pages/index/my",
+				"text": "我的",
 				"iconPath": "static/icon/tabbar/my-default.png",
 				"selectedIconPath": "static/icon/tabbar/my-selected.png"
 			}

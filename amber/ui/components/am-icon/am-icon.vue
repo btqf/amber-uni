@@ -1,8 +1,8 @@
 <template>
 	<text
 		:class="[
-			'cl-icon',
-			props.className || `cl-icon-${props.name}`,
+			'am-icon',
+			props.className || `am-icon-${props.name}`,
 			{
 				'is-primary': color == 'primary',
 			},
@@ -27,14 +27,17 @@ import { parseRpx } from "@/amber/utils";
 
 type Props = {
 	name: string;
-	className: string;
-	size: number;
-	color: string;
+	className?: string;
+	size?: number;
+	color?: string;
 };
 
 const props = withDefaults(defineProps<Props>(), {
 	size: 30,
 });
+console.log("arrow-right", props.name);
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+@import "am-icon";
+</style>

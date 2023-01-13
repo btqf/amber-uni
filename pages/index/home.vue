@@ -1,34 +1,30 @@
 <template>
-	<cl-page>
+	<view>
 		<view class="page-home">
-			<view class="logo"> amber-UNI </view>
+			<view class="logo"> amber-uni </view>
 
-			<view class="group" v-for="(item, index) in list" :key="index">
+			<view v-for="(item, index) in list" :key="index" class="group">
 				<text class="title">{{ item.label }}</text>
 
 				<view class="list">
 					<view
-						class="item"
 						v-for="(item2, index2) in item.children"
 						:key="index2"
+						class="item"
 						@tap="toLink(item2.link)"
 					>
 						<text class="label">{{ item2.label }}</text>
 
-						<cl-icon name="arrow-right"></cl-icon>
+						<am-icon name="arrow-right"></am-icon>
 					</view>
 				</view>
 			</view>
 		</view>
-	</cl-page>
+	</view>
 </template>
 
 <script lang="ts" setup>
 import { onMounted } from "vue";
-import { useCool, useStore } from "/@/cool";
-
-const { router } = useCool();
-const { dict } = useStore();
 
 const list = [
 	{
@@ -222,13 +218,8 @@ const list = [
 ];
 
 function toLink(link: string) {
-	router.push(link);
+	console.log(link);
 }
-
-onMounted(async () => {
-	const a = await dict.getSync("brand", 4);
-	console.log(a);
-});
 </script>
 
 <style lang="scss" scoped>
