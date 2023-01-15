@@ -24,8 +24,6 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from "vue";
-
 const list = [
 	{
 		label: "基础组件",
