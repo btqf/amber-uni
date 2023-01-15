@@ -57,4 +57,6 @@ const stickyTop = computed(() => {
 });
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+@import "am-sticky";
+</style>

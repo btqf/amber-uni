@@ -1,0 +1,16 @@
+.am-sticky {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	z-index: 999;
+	width: 100%;
+
+	&.is-flex {
+		display: flex;
+		align-items: center;
+	}
+
+	&.is-white {
+		background-color: #fff;
+	}
+}
