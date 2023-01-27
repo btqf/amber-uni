@@ -1,13 +1,9 @@
 <template>
-  <div>
-
-  </div>
+	<view class="page-my">
+		<text>设置</text>
+	</view>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts"></script>
 
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -72,7 +72,12 @@ const router = {
 			| string
 			| {
 					path: string;
-					mode?: "navigateTo" | "redirectTo" | "reLaunch" | "switchTab" | "preloadPage";
+					mode?:
+						| "navigateTo"
+						| "redirectTo"
+						| "reLaunch"
+						| "switchTab"
+						| "preloadPage";
 					query?: object;
 					[key: string]: any;
 			  }
@@ -150,9 +155,13 @@ const router = {
 		};
 
 		if (this.fn.beforeEach) {
-			this.fn.beforeEach({ path: options.path, query }, next, (options: any) => {
-				this.push(options);
-			});
+			this.fn.beforeEach(
+				{ path: options.path, query },
+				next,
+				(options: any) => {
+					this.push(options);
+				}
+			);
 		} else {
 			next();
 		}
@@ -160,7 +169,12 @@ const router = {
 
 	// 后退
 	back(options?: UniApp.NavigateBackOptions) {
-		const { delta = 1, animationDuration, animationType, duration = 0 } = options || {};
+		const {
+			delta = 1,
+			animationDuration,
+			animationType,
+			duration = 0,
+		} = options || {};
 
 		setTimeout(() => {
 			uni.navigateBack({
