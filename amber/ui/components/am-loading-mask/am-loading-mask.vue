@@ -1,16 +1,12 @@
 <template>
-	<view class="am-loading-mask_wrap">
-		<view
-			class="am-loading-mask"
-			:class="[classList]"
-			:style="{ background, color }"
-		>
-			<view class="am-loading-mask_content" v-show="loading">
-				<am-loading></am-loading>
-				<text v-if="text" class="am-loading-mask_text">{{ props.text }}</text>
-			</view>
-		</view>
-	</view>
+  <view class="am-loading-mask_wrap">
+    <view class="am-loading-mask" :class="[classList]" :style="{ background, color }">
+      <view v-show="loading" class="am-loading-mask_content">
+        <am-loading></am-loading>
+        <text v-if="text" class="am-loading-mask_text">{{ props.text }}</text>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script setup lang="ts">
@@ -27,29 +23,29 @@
 import { computed } from "vue";
 
 type Props = {
-	text: string;
-	loading?: boolean;
-	loadingTheme: string;
-	fullScreen?: boolean;
-	color: string;
-	background?: string;
+  text: string;
+  loading?: boolean;
+  loadingTheme: string;
+  fullScreen?: boolean;
+  color: string;
+  background?: string;
 };
 
 const props = withDefaults(defineProps<Props>(), {
-	loading: false,
-	fullScreen: false,
-	background: "rgba(255, 255, 255, 0.7)",
+  loading: false,
+  fullScreen: false,
+  background: "rgba(255, 255, 255, 0.7)",
 });
 
 const classList = computed(() => {
-	const list = [];
-	if (props.fullScreen) {
-		list.push("is-fullscreen");
-	}
-	if (props.loading) {
-		list.push("is-show");
-	}
-	return list;
+  const list = [];
+  if (props.fullScreen) {
+    list.push("is-fullscreen");
+  }
+  if (props.loading) {
+    list.push("is-show");
+  }
+  return list;
 });
 </script>
 
