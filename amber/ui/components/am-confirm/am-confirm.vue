@@ -1,5 +1,6 @@
 <template>
-  <view class="am-confirm"> </view>
+  <view class="am-confirm">
+  </view>
 </template>
 
 <script setup lang="ts"></script>
