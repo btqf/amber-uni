@@ -8,7 +8,7 @@
       <template #footer>
         <view class="am-confirm__footer">
           <view v-if="conf.showCancelButton" class="am-confirm__footer-item">
-            <cl-button
+            <am-button
               plain
               fill
               :height="70"
@@ -16,7 +16,7 @@
               :border-radius="0"
               @tap="close('cancel')"
             >
-              {{ conf.cancelButtonText }}</cl-button
+              {{ conf.cancelButtonText }}</am-button
             >
           </view>
 
