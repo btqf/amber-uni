@@ -47,7 +47,7 @@ import { computed } from "vue";
 import { parseRpx } from "@/amber/utils";
 
 type Props = {
-  color: string;
+  color?: string;
   borderColor?: string;
   borderWidth?: string | number;
   theme?: string;
@@ -55,6 +55,7 @@ type Props = {
 };
 
 const props = withDefaults(defineProps<Props>(), {
+  color: "rgba(0, 0, 0, 0.2)",
   borderColor: "rgba(0, 0, 0, 0.1)",
   borderWidth: 4,
   theme: "default",

@@ -256,7 +256,7 @@ function toLink(link: string) {
         height: 80rpx;
         padding: 0 30rpx;
         margin-bottom: 25rpx;
-        background-color: #fff;
+        background-color: rgb(196, 188, 188);
         border-radius: 80rpx;
         box-shadow: 0 1rpx 8rpx #6666660f;
 

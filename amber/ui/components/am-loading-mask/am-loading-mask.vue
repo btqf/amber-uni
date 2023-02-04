@@ -1,8 +1,12 @@
 <template>
   <view class="am-loading-mask_wrap">
-    <view class="am-loading-mask" :class="[classList]" :style="{ background, color }">
-      <view v-show="loading" class="am-loading-mask_content">
-        <am-loading></am-loading>
+    <view
+      class="am-loading-mask"
+      :class="[classList]"
+      :style="{ background: props.background, color: props.color }"
+    >
+      <view v-show="props.loading" class="am-loading-mask_content">
+        <am-loading :color="props.color" :loading-theme="props.oadingTheme"></am-loading>
         <text v-if="text" class="am-loading-mask_text">{{ props.text }}</text>
       </view>
     </view>
@@ -27,13 +31,15 @@ type Props = {
   loading?: boolean;
   loadingTheme: string;
   fullScreen?: boolean;
-  color: string;
+  color?: string;
   background?: string;
 };
 
 const props = withDefaults(defineProps<Props>(), {
+  text: "",
   loading: false,
   fullScreen: false,
+  color: "rgba(0, 0, 0, 0.2)",
   background: "rgba(255, 255, 255, 0.7)",
 });
 

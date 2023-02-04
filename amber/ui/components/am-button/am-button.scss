@@ -75,7 +75,7 @@
 		background-color: transparent;
 
 		.am-button__text {
-			color: $cl-color-primary;
+			color: $am-color-primary;
 		}
 
 		&::after {
@@ -200,11 +200,11 @@
 		}
 	}
 
-	@include color(primary, $cl-color-primary);
-	@include color(success, $cl-color-success);
-	@include color(error, $cl-color-error);
-	@include color(warning, $cl-color-warning);
-	@include color(info, $cl-color-info);
+	@include color(primary, $am-color-primary);
+	@include color(success, $am-color-success);
+	@include color(error, $am-color-error);
+	@include color(warning, $am-color-warning);
+	@include color(info, $am-color-info);
 }
 
 .am-button + .am-button,

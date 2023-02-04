@@ -18,7 +18,7 @@
 		border-style: solid;
 		box-sizing: border-box;
 		animation: loading-rotate 1s linear infinite;
-		color: $cl-color-primary;
+		color: $am-color-primary;
 	}
 
 	&--spin {
@@ -40,7 +40,7 @@
 
 		&-item {
 			border-radius: 5px;
-			background-color: $cl-color-primary;
+			background-color: $am-color-primary;
 		}
 
 		&:nth-child(2) {

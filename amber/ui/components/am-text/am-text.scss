@@ -1,0 +1,85 @@
+.am-text {
+	display: inline-block;
+	white-space: normal;
+	word-break: break-all;
+	word-wrap: break-word;
+
+	&.is-bold {
+		font-weight: 500;
+	}
+
+	&.is-block {
+		display: block;
+	}
+
+	&.is-price {
+		top: 2rpx;
+	}
+
+	&.is-phone {
+		top: 1rpx;
+	}
+
+	&.is-line-through {
+		text-decoration: line-through;
+	}
+
+	&.is-underline {
+		.am-text__value {
+			text-decoration: underline;
+		}
+	}
+
+	&.is-ellipsis {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+	}
+
+	&.is-copy {
+		user-select: text;
+	}
+
+	&.is-color-primary {
+		color: $am-color-primary;
+	}
+
+	&.is-color-success {
+		color: $am-color-success;
+	}
+
+	&.is-color-error {
+		color: $am-color-error;
+	}
+
+	&.is-color-warning {
+		color: $am-color-warning;
+	}
+
+	&.is-color-info {
+		color: $am-color-info;
+	}
+
+	&__symbol--price {
+		font-size: 22rpx;
+	}
+
+	&__precision {
+		font-size: 24rpx;
+	}
+
+	&__prefix-icon {
+		margin-right: 4rpx;
+	}
+
+	&__suffix-icon {
+		margin-left: 4rpx;
+	}
+
+	&__prefix-icon,
+	&__suffix-icon {
+		position: relative;
+		top: 1rpx;
+	}
+}

@@ -122,13 +122,13 @@ const close = (action: AMConfirm.Action = "close") => {
 };
 
 // 监听关闭
-const onClose = (action: AMConfirm.Action) {
+const onClose = (action: AMConfirm.Action) => {
   if (!closed.value) {
     close(action);
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-@import "am-confirm";
+@import "am-cofirm";
 </style>

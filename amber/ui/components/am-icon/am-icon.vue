@@ -1,17 +1,17 @@
 <template>
-	<text
-		:class="[
-			'am-icon',
-			props.className || `am-icon-${props.name}`,
-			{
-				'is-primary': color == 'primary',
-			},
-		]"
-		:style="{
-			fontSize: parseRpx(size),
-			color,
-		}"
-	></text>
+  <text
+    :class="[
+      'am-icon',
+      props.className || `am-icon-${props.name}`,
+      {
+        'is-primary': color == 'primary',
+      },
+    ]"
+    :style="{
+      fontSize: parseRpx(size),
+      color,
+    }"
+  ></text>
 </template>
 
 <script setup lang="ts">
@@ -26,14 +26,14 @@
 import { parseRpx } from "@/amber/utils";
 
 type Props = {
-	name: string;
-	className?: string;
-	size?: number;
-	color?: string;
+  name: string;
+  className?: string;
+  size?: number;
+  color?: string;
 };
 
 const props = withDefaults(defineProps<Props>(), {
-	size: 30,
+  size: 30,
 });
 console.log("arrow-right", props.name);
 </script>

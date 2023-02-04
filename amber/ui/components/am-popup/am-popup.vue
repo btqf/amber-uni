@@ -63,7 +63,7 @@ type Props = {
   modelValue?: boolean;
   direction?: "center" | "top" | "left" | "right" | "bottom";
   size?: string | number;
-  backgroundColor: string;
+  backgroundColor?: string;
   borderRadius?: string | number;
   padding?: string | number;
   closeOnclickModal?: boolean;
@@ -124,9 +124,6 @@ watch(
     } else {
       close();
     }
-  },
-  {
-    immediate: true,
   }
 );
 
