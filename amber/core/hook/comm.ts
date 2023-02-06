@@ -1,6 +1,7 @@
 import { ref, onBeforeUpdate } from "vue";
 import { useUi } from "../../ui";
 import { router } from "../router";
+import { useMitt } from "../mitt";
 
 export function useRefs() {
   const refs = ref<any>({});
@@ -19,6 +20,8 @@ export function useRefs() {
 export function useAmber() {
   const { refs, setRefs } = useRefs();
 
+  const mitt = useMitt();
+
   // 全局组件
   const ui = useUi();
 
@@ -27,5 +30,6 @@ export function useAmber() {
     setRefs,
     ui,
     router,
+    mitt,
   };
 }
