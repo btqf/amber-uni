@@ -12,7 +12,7 @@
       <am-icon name="like" color="green"></am-icon>
     </am-card>
 
-    <!-- <am-card label="所有图标">
+    <am-card label="所有图标">
       <am-grid :column="4">
         <am-grid-item v-for="item in list" :key="item">
           <view class="item" @tap="copy(item)">
@@ -21,7 +21,7 @@
           </view>
         </am-grid-item>
       </am-grid>
-    </am-card> -->
+    </am-card>
   </am-page>
 </template>
 

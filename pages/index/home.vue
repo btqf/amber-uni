@@ -1,5 +1,5 @@
 <template>
-  <view>
+  <am-page>
     <view class="page-home">
       <view class="logo"> amber-uni </view>
 
@@ -20,13 +20,16 @@
         </view>
       </view>
     </view>
-  </view>
+  </am-page>
 </template>
 
 <script lang="ts" setup>
-import { useAmber } from "@/amber";
+import { useAmber, useStore } from "@/amber";
+import { onMounted } from "@vue/runtime-core";
 
 const { router } = useAmber();
+const { dict } = useStore();
+
 const list = [
   {
     label: "基础组件",
@@ -222,6 +225,11 @@ function toLink(link: string) {
   console.log("link", link);
   router.push(link);
 }
+
+onMounted(async () => {
+  const a = await dict.getSync("brand", 4);
+  console.log(a);
+});
 </script>
 
 <style lang="scss" scoped>

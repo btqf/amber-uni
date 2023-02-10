@@ -1,0 +1,222 @@
+<template>
+  <view
+    class="am-list-item"
+    :class="[classList]"
+    :style="customStyle"
+    @touchstart="onTouchStart"
+    @touchmove="onTouchMove"
+    @touchend="onTouchEnd"
+  >
+    <view
+      class="am-list-item__swiper"
+      :style="{
+        transform: `translateX(${touch.x}px)`,
+      }"
+    >
+      <view class="am-list-item__container">
+        <view v-if="$slots.icon" class="am-list-item__icon">
+          <slot name="icon"></slot>
+        </view>
+
+        <text v-if="props.label && props.label != 'true'" class="am-list-item__label">{{
+          props.label
+        }}</text>
+
+        <view class="am-list-item__content" :class="[classList2]">
+          <slot></slot>
+        </view>
+
+        <view class="am-list-item__append">
+          <slot name="append">
+            <text v-if="props.arrowIcon" class="am-icon-arrow-right"></text>
+          </slot>
+        </view>
+      </view>
+
+      <template v-if="props.swipe != 'none'">
+        <view :class="[`am-list-item__menu-${props.swipe}`]">
+          <slot name="menu"></slot>
+        </view>
+      </template>
+    </view>
+  </view>
+</template>
+
+<script setup lang="ts">
+/**
+ * @description 列表项,自定义内容,支持滑动
+ * @property {String} label 标签内容
+ * @property {Boolean} disabled 是否禁用
+ * @property {Boolean} border 是否带有下边框，默认true
+ * @property {Boolean} type 类型 primary | success | error | warning | info
+ * @property {Boolean} justify 水平布局方式，默认end
+ * @property {Boolean} swipe 是否滑动 none | left | right，默认none
+ * @property {Object} customStyle 自定义样式
+ * @property {Boolean} arrowIcon 是否显示右侧箭头，默认true
+ * @event {Function} tap 点击时触发
+ */
+
+import { computed, getCurrentInstance, onMounted, reactive, watch } from "vue";
+import { isBoolean } from "lodash";
+import { useEl } from "../../hook";
+
+type Props = {
+  label?: string;
+  disabled?: boolean;
+  border?: boolean;
+  type?: "primary" | "success" | "error" | "warning" | "info";
+  justify?: "start" | "end" | "center";
+  swipe?: "none" | "left" | "right";
+  customStype?: Object;
+  arrowIcon?: boolean;
+};
+
+const props = withDefaults(defineProps<Props>(), {
+  label: "",
+  disabled: false,
+  border: false,
+  type: "primary",
+  justify: "center",
+  swipe: "none",
+  customStype: null,
+  arrowIcon: true,
+});
+
+const { proxy }: any = getCurrentInstance();
+const { getParent } = useEl();
+
+// am-list
+const parent = getParent("am-list", ["justify", "border", "disabled"]);
+
+// 样式
+const classList = computed(() => {
+  let list: string[] = [];
+  if (isBoolean(props.border) ? props.border : parent.value?.border) {
+    list.push("is-border");
+  }
+  if (isBoolean(props.disabled) ? props.disabled : parent.value?.disabled) {
+    list.push("is-disabled");
+  }
+  if (slots.append) {
+    list.push("is-append");
+  }
+  return list.join(" ");
+});
+// 样式2
+const classList2 = computed(() => {
+  let list: string[] = [];
+  if (props.type) {
+    list.push(`is-color-${props.type}`);
+  }
+  const justify = props.justify || parent.value?.justify || "end";
+  if (justify) {
+    list.push(`is-justify-${justify}`);
+  }
+  return list.join(" ");
+});
+
+// 触摸
+const touch = reactive<any>({
+  start: 0,
+  end: 0,
+  x: 0,
+  y: 0,
+  maxX: 0,
+  direction: "left",
+  lock: true,
+});
+
+// 滑动菜单
+const menu = reactive<any>({
+  width: 0,
+});
+
+// 滑动开始
+function onTouchStart(e: any) {
+  if (props.swipe != "none") {
+    touch.start = e.touches[0].pageX;
+    touch.lock = false;
+  }
+}
+// 滑动中
+function onTouchMove(e: any) {
+  const { start, end, lock, maxX } = touch;
+  if (!lock) {
+    // 滑动距离
+    const offsetX = e.touches[0].pageX - start;
+    // 移动方向
+    touch.direction = offsetX > 0 ? "right" : "left";
+    // 偏移距离
+    let x = end + offsetX;
+    if (props.swipe == "left") {
+      if (x > maxX) {
+        x = maxX;
+      }
+      if (x < 0) {
+        x = 0;
+      }
+    }
+    if (props.swipe == "right") {
+      if (x < maxX) {
+        x = maxX;
+      }
+      if (x > 0) {
+        x = 0;
+      }
+    }
+    touch.x = x;
+  }
+}
+// 滑动结束
+function onTouchEnd() {
+  const { direction, x, end, lock, maxX } = touch;
+  const sw = menu.width / 2 > 50 ? 50 : menu.width / 2;
+  if (!lock) {
+    if (Math.abs(x - end) > sw) {
+      if (direction === props.swipe) {
+        touch.x = 0;
+      } else {
+        touch.x = maxX;
+      }
+      touch.end = touch.x;
+    } else {
+      touch.x = end === 0 ? 0 : maxX;
+    }
+    touch.lock = true;
+  }
+}
+// 设置菜单宽度
+function setMenu() {
+  if (props.swipe != "none") {
+    const query = uni.createSelectorQuery().in(proxy);
+    query
+      .select(`.cl-list-item__menu-${props.swipe}`)
+      .boundingClientRect((data) => {
+        if (data) {
+          menu.width = data.width;
+          touch.maxX = menu.width * (props.swipe === "right" ? -1 : 1);
+        }
+      })
+      .exec();
+  }
+}
+// 滑动后还原位置的方法
+function restore(cb: Function) {
+  touch.start = 0;
+  touch.end = 0;
+  touch.lock = true;
+  touch.x = 0;
+  if (cb) {
+    setTimeout(() => {
+      cb();
+    }, 300);
+  }
+}
+// 重新设置滑动菜单
+watch(() => props.swipe, setMenu);
+onMounted(() => {
+  setMenu();
+});
+</script>
+
+<style lang="scss" scoped></style>
